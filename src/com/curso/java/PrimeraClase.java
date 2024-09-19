@@ -5,7 +5,7 @@ public class PrimeraClase {
 	public static void main(String[] args) {
 		
 		
-		String nombre = "Alejandro Sotillo Dolinski";
+		String nombre = "Alejandro";
 		System.out.println(nombre);
 		
 	}
