@@ -16,7 +16,7 @@ public class CineMain {
 		Sala sala2 = new Sala(2, "El Imperio Contraataca", butacas2);
 		Sala sala3 = new Sala(3, "El Viaje de Chihiro", butacas3);
 		Sala[] salas = {sala1, sala2, sala3};
-		Cine cine1 = new Cine("Kinépolis", salas);
+		Cine cine1 = new Cine("Yelmo", salas);
 		CineMain cineMain = new CineMain();
 		for (Espectador espectador : espectadores) {
 			cineMain.ventaEntradas(cine1, espectador);
