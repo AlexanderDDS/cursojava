@@ -13,7 +13,7 @@ public class CineMainUtilidades {
 					break;
 				}
 			}
-			if (conseguido=true) {
+			if (conseguido) {
 				break;
 			}
 		}
