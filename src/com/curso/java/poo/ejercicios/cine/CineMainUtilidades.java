@@ -6,12 +6,9 @@ public class CineMainUtilidades {
 	public static int[] verUbicacionEspectador(Sala sala, Espectador espectador) {
 		int i=0, j=0;
 		boolean conseguido = false;
-		for (Espectador[] fila : sala.getButacas()) {
-			j=0;
-			i++;
-			for (Espectador butaca : fila) {
-				j++;
-				if (butaca==espectador) {
+		for (i=0; i<sala.getButacas().length; i++) {
+			for (j=0; j<sala.getButacas()[i].length; j++) {
+				if (sala.getButacas()[i][j]==espectador) {
 					conseguido=true;
 					break;
 				}
@@ -20,7 +17,7 @@ public class CineMainUtilidades {
 				break;
 			}
 		}
-		int[] ubicacionEspectador = {i, j};
+		int[] ubicacionEspectador = {i+1, j+1};
 		return ubicacionEspectador;
 	}
 	public static Espectador[] verEspectadoresSala(Sala sala) {
