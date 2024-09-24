@@ -40,13 +40,13 @@ public class Carrera {
 	public Caballo iniciarCarrera() {
 		System.out.println("\tComienza la carrera "+this.nombre+" de "+(int)this.distancia+"m!");
 		Caballo caballoGanador = null;
-		boolean ganador = false;
-		while (ganador==false) {
+		boolean hayGanador = false;
+		while (!hayGanador) {
 			for (Caballo caballo : caballos) {
 				caballo.correr();
 				if (caballo.getPosicion()>=distancia) {
 					caballoGanador = caballo;
-					ganador=true;
+					hayGanador=true;
 					System.out.println("El caballo ganador es ["+caballoGanador.getNumero()+"] "+caballoGanador.getNombre()+"!");
 					break;
 				}

@@ -11,7 +11,7 @@ public class CineMain {
 		Espectador[] espectadores = {espectador1, espectador2, espectador3};
 		Espectador[][] butacas1 = new Espectador[3][2];
 		Espectador[][] butacas2 = new Espectador[2][3];
-		Espectador[][] butacas3 = new Espectador[1][2];
+		Espectador[][] butacas3 = new Espectador[2][2];
 		Sala sala1 = new Sala(1, "La Comunidad del Anillo", butacas1);
 		Sala sala2 = new Sala(2, "El Imperio Contraataca", butacas2);
 		Sala sala3 = new Sala(3, "El Viaje de Chihiro", butacas3);
