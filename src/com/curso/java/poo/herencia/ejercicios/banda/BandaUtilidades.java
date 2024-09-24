@@ -9,7 +9,7 @@ public class BandaUtilidades {
 	public static void tocarInstrumentos(Instrumento[] instrumentos) {
 		boolean suenaMal=false;
 		for (Instrumento instrumento : instrumentos) {
-			if (instrumento.getNombre().toLowerCase().contains("tambor")) {
+			if (instrumento instanceof Tambor) {
 				((Tambor)instrumento).aporrear();
 			}else {
 				instrumento.tocar();

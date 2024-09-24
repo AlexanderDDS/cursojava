@@ -1,9 +1,15 @@
 package com.curso.java.poo.herencia.ejercicios.banda;
 
-public class Instrumento {
+public abstract class Instrumento {
 	private String nombre;
 	private String tipo;
 	private boolean afinado;
+	public Instrumento(String nombre, String tipo, boolean afinado) {
+		super();
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.afinado = afinado;
+	}
 	public Instrumento(String nombre, String tipo) {
 		super();
 		this.nombre = nombre;
@@ -27,12 +33,17 @@ public class Instrumento {
 	public void setAfinado(boolean afinado) {
 		this.afinado = afinado;
 	}
+	@Override
+	public String toString() {
+		return "Instrumento [nombre=" + nombre + ", tipo=" + tipo + ", afinado=" + afinado + "]";
+	}
 	public void afinar() {
 		System.out.println("Afinando instrumento "+this.nombre);
 		double tuneCheck = Math.random();
-		this.afinado = tuneCheck>0.4?true:false;
+		this.afinado = tuneCheck>0.4;
 	}
 	public void tocar() {
 		System.out.println("Tocando instrumento "+this.nombre);
 	}
+	public abstract void limpiar();
 }

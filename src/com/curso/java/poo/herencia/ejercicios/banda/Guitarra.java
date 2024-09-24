@@ -17,4 +17,8 @@ public class Guitarra extends Instrumento {
 		super.afinar();
 		System.out.println("\tAfinando guitarra");
 	}
+	@Override
+	public void limpiar() {
+		System.out.println("La guitarra se está limpiando");
+	}
 }

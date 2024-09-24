@@ -19,6 +19,10 @@ public class Tambor extends Instrumento {
 		System.out.println("Afinando tambor");
 		this.setAfinado(true);
 	}
+	@Override
+	public void limpiar() {
+		// TODO Auto-generated method stub
+	}
 	public void aporrear() {
 		System.out.println("Aporreando tambor");
 	}

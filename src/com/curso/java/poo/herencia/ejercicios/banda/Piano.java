@@ -25,5 +25,8 @@ public class Piano extends Instrumento {
 		super.afinar();
 		System.out.println("\tAfinando piano");
 	}
-
+	@Override
+	public void limpiar() {
+		// TODO Auto-generated method stub
+	}
 }
