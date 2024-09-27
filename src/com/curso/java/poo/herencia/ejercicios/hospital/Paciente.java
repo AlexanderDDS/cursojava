@@ -1,5 +1,7 @@
 package com.curso.java.poo.herencia.ejercicios.hospital;
 
+import java.util.Arrays;
+
 public class Paciente extends Persona {
 	private String[] sintomas;
 	public Paciente(String nombre, int edad, String[] sintomas) {
@@ -11,6 +13,10 @@ public class Paciente extends Persona {
 	}
 	public void setSintomas(String[] sintomas) {
 		this.sintomas = sintomas;
+	}
+	@Override
+	public String toString() {
+		return "Paciente [nombre="+getNombre()+", edad="+getEdad()+", sintomas=" + Arrays.toString(sintomas) + "]";
 	}
 	@Override
 	public void comer() {

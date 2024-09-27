@@ -14,7 +14,17 @@ public class Utilidades {
 		Scanner scan = new Scanner(System.in);
 		int numero = scan.nextInt();
 		return numero;
-		
+	}
+	public static double pideDatoDouble(String pregunta) {
+		/**
+		Función que necesita una pregunta y devuelve un double que introduzca usuario
+		@param String pregunta
+		@return double
+		*/
+		System.out.println(pregunta);
+		Scanner scan = new Scanner(System.in);
+		double numeroDouble = scan.nextDouble();
+		return numeroDouble;
 	}
 	public static String pideDatoString(String pregunta) {
 		/**
@@ -34,6 +44,17 @@ public class Utilidades {
 			System.out.println((i+1)+". "+opcion);
 			i++;
 		}
+	}
+	public static int pintaMenuPideNum(String opcion, String pregunta) {
+		int seleccion = 0;
+		do {
+			System.out.println("1. "+opcion);
+			seleccion = pideDatoNumerico(pregunta);
+			if (seleccion!=1) {
+				System.out.println("Opción incorrecta, escoja de nuevo");
+			}
+		}while (seleccion!=1);
+		return seleccion;
 	}
 	public static int pintaMenuPideNum(String[] opciones, String pregunta) {
 		int seleccion = 0;
