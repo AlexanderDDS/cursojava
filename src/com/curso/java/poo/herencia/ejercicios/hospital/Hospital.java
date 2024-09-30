@@ -79,11 +79,11 @@ public class Hospital {
 		}
 	}
 	public void trabajanEmpleados(EmpleadoHospital[] empleados) {
-		int contador = 0;
+		int posicionPaciente = 0;
 		for (Paciente paciente : this.salaEspera) {
 			((Enfermero)empleados[0]).atenderPaciente(paciente, (Doctor)empleados[1], this.habitaciones); //El enfermero va atendiendo a cada paciente en la sala de espera
-			this.salaEspera[contador]=null; //Quitamos al paciente de la sala de espera tras atenderle
-			contador++;
+			this.salaEspera[posicionPaciente]=null; //Quitamos al paciente de la sala de espera tras atenderle
+			posicionPaciente++;
 		}
 	}
 }
