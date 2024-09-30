@@ -19,23 +19,28 @@ public class Enfermero extends EmpleadoHospital {
 		return "Enfermero [nombre="+getNombre()+", edad="+getEdad()+", turno="+getTurno()+", planta="+planta+"]";
 	}
 	@Override
+	public void fichar() {
+		super.fichar();
+		System.out.println("\t"+ConsoleColors.PURPLE_BACKGROUND+toString()+ConsoleColors.RESET);
+	}
+	@Override
 	public void descansar() {
 		System.out.println("El enfermero "+this.getNombre()+" está descansando en la sala de enfermeros");
 	}
-	public void atenderPaciente(Paciente paciente, Doctor doctor, Hospital hospital) {
+	public void atenderPaciente(Paciente paciente, Doctor doctor, Habitacion[] habitaciones) {
 		System.out.println("El paciente "+paciente.getNombre()+" está siendo atendido por el enfermero "+this.getNombre());
 		System.out.println("\t"+ConsoleColors.GREEN_BACKGROUND+paciente+ConsoleColors.RESET);
 		Enfermo enfermoAtendido = doctor.diagnosticarPaciente(paciente);
 		if (enfermoAtendido!=null) {
-			System.out.println(ConsoleColors.RED_BRIGHT+"El paciente "+enfermoAtendido.getNombre()+" ha sido diagnosticado de "+enfermoAtendido.getEnfermedad()+" por el Dr "+doctor.getNombre()+" y va a ser ingresado"+ConsoleColors.RESET);
-			ingresarEnfermo(enfermoAtendido, hospital);
+			System.out.println("El paciente "+enfermoAtendido.getNombre()+" va a ser ingresado");
+			ingresarEnfermo(enfermoAtendido, habitaciones);
 		}else {
-			System.out.println(ConsoleColors.BLUE_BRIGHT+"El paciente "+paciente.getNombre()+" ha sido atendido por el Dr "+doctor.getNombre()+", el cual ha visto que no está enfermo y le ha dicho que se puede ir a casa"+ConsoleColors.RESET);
+			System.out.println("El paciente "+paciente.getNombre()+" se puede ir a casa");
 		}
 	}
-	private void ingresarEnfermo(Enfermo enfermo, Hospital hospital) {
+	private void ingresarEnfermo(Enfermo enfermo, Habitacion[] habitaciones) {
 		boolean enfermoIngresado=false;
-		for (Habitacion habitacion : hospital.getHabitaciones()) {
+		for (Habitacion habitacion : habitaciones) {
 			if (habitacion.getEnfermo()==null) {
 				habitacion.setEnfermo(enfermo);
 				enfermoIngresado=true;

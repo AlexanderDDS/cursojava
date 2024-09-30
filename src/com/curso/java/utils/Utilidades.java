@@ -41,8 +41,10 @@ public class Utilidades {
 		//Pasar varios String y que pinte la información que le pasamos. En un solo parametro recibir todas las opciones del menu (array, duh)
 		int i=0;
 		for (String opcion : opciones) {
-			System.out.println((i+1)+". "+opcion);
-			i++;
+			if (opcion!=null) {
+				System.out.println((i+1)+". "+opcion);
+				i++;
+			}
 		}
 	}
 	public static int pintaMenuPideNum(String opcion, String pregunta) {
