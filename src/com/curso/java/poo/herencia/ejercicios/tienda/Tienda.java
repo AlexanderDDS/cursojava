@@ -35,23 +35,29 @@ public class Tienda {
 	}
 	@Override
 	public String toString() {
-		return "Tienda [nombre=" + nombre + ", usuarios=" + Arrays.toString(usuarios) + ", productos="
-				+ Arrays.toString(productos) + "]";
+		return "Tienda [nombre="+nombre+", usuarios="+Arrays.toString(usuarios)+", productos="+Arrays.toString(productos)+"]";
 	}
 	public static void main(String[] args) {
-		Tienda tienda = new Tienda("Renata");
-		tienda.abrirTienda();
+		Tienda tienda = new Tienda(args[0]);
+		tienda.abrirTienda(args[1], args[2], args[3]);
 	}
-	public void abrirTienda() {
-		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Esta es la página web para la tienda "+this.nombre+", donde siempre conseguirás la oferta más barata"+ConsoleColors.RESET);
-		crearAdminInicial();
+	public void abrirTienda(String nombre, String codigoUsuario, String contrasenia) {
+		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Esta es la página web para la tienda "+this.nombre+ConsoleColors.RESET);
+		crearStockInicial();
+		crearAdminInicial(nombre, codigoUsuario, contrasenia);
 		do {
 			menuUsuario();
 		}while (usuarioQuiereContinuar("con otro usuario"));
 	}
-	private void crearAdminInicial() {
-		Admin admin1 = new Admin("Alejandro", "a", "1", true);
+	private void crearAdminInicial(String nombre, String codigoUsuario, String contrasenia) {
+		Admin admin1 = new Admin(nombre, codigoUsuario, contrasenia, true);
 		this.usuarios[0]=admin1;
+	}
+	private void crearStockInicial() {
+		Libro libro1 = new Libro("1", 50.5, "346462345", "El Hobbit");
+		Libro libro2 = new Libro("2", 52.3, "362346234", "Dune");
+		Producto[] productos = {(Producto)libro1, (Producto)libro2};
+		this.productos = productos;
 	}
 	public void menuUsuario() {
 		Usuario usuarioSesionIniciada = iniciarSesion();
@@ -245,16 +251,17 @@ public class Tienda {
 	public boolean revisarCodigoUsuario(String codigoUsuario) {
 		boolean codigoNoRepetido = true;
 		for (Usuario usuario : this.usuarios) {
-			if (usuario.getCodigo_usuario().equals(codigoUsuario)) {
-				System.out.println(ConsoleColors.RED_BRIGHT+"No se puede usar ese código de usuario, ya está en uso"+ConsoleColors.RESET);
-				codigoNoRepetido = false;
-				break;
+			if (usuario!=null) {
+				if (usuario.getCodigo_usuario().equals(codigoUsuario)) {
+					System.out.println(ConsoleColors.RED_BRIGHT+"No se puede usar ese código de usuario, ya está en uso"+ConsoleColors.RESET);
+					codigoNoRepetido = false;
+					break;
+				}
 			}
 		}
 		return codigoNoRepetido;
 	}
 	public void menuCliente(Cliente cliente) {
-		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Aquí puede ver los productos de nuestra tienda para comprar"+ConsoleColors.RESET);
 		int posicionCarrito=0;
 		do {
 			if (cliente.getCarritoCompra()[posicionCarrito]==null) {
@@ -262,20 +269,19 @@ public class Tienda {
 			}
 			posicionCarrito++;
 		}while (posicionCarrito<cliente.getCarritoCompra().length && usuarioQuiereContinuar("añadiendo productos al carrito de la compra"));
-		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Ha decidido no añadir más productos, por lo que procederá a pagar el carrito de la compra: "+darPrecioTotalCarrito(cliente)+" euros"+ConsoleColors.RESET);
-		String[] stringsProductosCarritoCompra = darProductosComoStrings(cliente.getCarritoCompra());
-		Utilidades.pintaMenu(stringsProductosCarritoCompra);
-		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Precio total: "+darPrecioTotalCarrito(cliente)+" euros"+ConsoleColors.RESET);//Mostrar carrito de compra
-		cliente.pagar(ConsoleColors.RED_BRIGHT+"No tiene suficiente dinero para pagar el carrito"+ConsoleColors.RESET, ConsoleColors.BLUE_BOLD_BRIGHT+"Ha pagado su carrito correctamente"+ConsoleColors.RESET);
+		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Ha decidido no añadir más productos, por lo que procederá a pagar el carrito de la compra:"+ConsoleColors.RESET);
+		pagarCarrito(cliente);
 	}
 	public void añadirProductoACarrito(Cliente cliente, int posicionCarrito) {
 		int espacioLibre = espacioLibreProductos(cliente.getCarritoCompra(), "el carrito de la compra");
 		if (espacioLibre>0) {
 			cliente.getCarritoCompra()[posicionCarrito] = seleccionarProducto();
+			espacioLibre--;
 		}
 		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Hay "+espacioLibre+" huecos libres en el carrito de la compra"+ConsoleColors.RESET);
 	}
 	public Producto seleccionarProducto() {
+		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Aquí puede ver los productos de nuestra tienda para comprar"+ConsoleColors.RESET);
 		Producto[] productosAMostrar = darProductosDelTipoSeleccionado(escogerTipoProducto());
 		String[] stringsDeProductos = darProductosComoStrings(productosAMostrar);
 		int seleccionProducto = Utilidades.pintaMenuPideNum(stringsDeProductos, ConsoleColors.BLUE_BOLD_BRIGHT+"Seleccione un producto:"+ConsoleColors.RESET);
@@ -327,6 +333,19 @@ public class Tienda {
 		}
 		return cantidadTipoProducto;
 	}
+	public void pagarCarrito(Cliente cliente) {
+		boolean haPagado = false;
+		do {
+			System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Este es su carrito de la compra:"+ConsoleColors.RESET);
+			String[] stringsProductosCarrito = darProductosComoStrings(cliente.getCarritoCompra());
+			Utilidades.pintaMenu(stringsProductosCarrito);
+			double precioTotalCarrito = darPrecioTotalCarrito(cliente);
+			haPagado = cliente.pagar(precioTotalCarrito);
+			if (!haPagado) {
+				modificarCarrito(cliente, stringsProductosCarrito, precioTotalCarrito);
+			}
+		}while (!haPagado);
+	}
 	public String[] darProductosComoStrings(Producto[] productos) {
 		String[] stringsDeProductos = new String[productos.length];
 		for (int i=0; i<productos.length; i++) {
@@ -344,5 +363,13 @@ public class Tienda {
 			}
 		}
 		return precioTotal;
+	}
+	public void modificarCarrito(Cliente cliente, String[] stringsProductosCarrito, double precioTotalCarrito) {
+		do {
+			int seleccionProductoAQuitar = Utilidades.pintaMenuPideNum(stringsProductosCarrito, "Escoja un producto que quitaremos del carrito para poder seguir con la compra:");
+			cliente.getCarritoCompra()[seleccionProductoAQuitar-1] = null;
+			double precioTotalCarritoNuevo = darPrecioTotalCarrito(cliente);
+			System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"El precio total del carrito de la compra tras quitar el producto es de: "+precioTotalCarritoNuevo+ConsoleColors.RESET);
+		}while(usuarioQuiereContinuar("quitando productos del carrito de la compra") && espacioLibreProductos(cliente.getCarritoCompra(), "el carrito de la compra")>0);
 	}
 }

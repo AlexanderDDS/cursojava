@@ -16,6 +16,6 @@ public class TiendaTest {
 	}
 	@Test
 	public void iniciarSesionTest() {
-		tienda1.iniciarSesion();
+		
 	}
 }

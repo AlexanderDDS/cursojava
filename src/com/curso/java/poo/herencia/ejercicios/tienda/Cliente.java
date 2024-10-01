@@ -1,5 +1,7 @@
 package com.curso.java.poo.herencia.ejercicios.tienda;
 
+import com.curso.java.utils.ConsoleColors;
+
 public class Cliente extends Usuario {
 	private Producto[] carritoCompra;
 	private boolean vip;
@@ -8,7 +10,7 @@ public class Cliente extends Usuario {
 		super(nombre, codigo_usuario, contrasenia);
 		this.carritoCompra = new Producto[2];
 		this.vip = vip;
-		this.dinero = 20.00;
+		this.dinero = 100.00;
 	}
 	public Producto[] getCarritoCompra() {
 		return carritoCompra;
@@ -29,24 +31,21 @@ public class Cliente extends Usuario {
 	public String toString() {
 		return "Cliente [nombre="+getNombre()+", codigo usuario="+getCodigo_usuario()+", contraseña="+getContrasenia()+", es VIP="+vip+"]";
 	}
-	public void pagar(String dineroInsuficiente, String pagadoCorrectamente) {
-		double saldo = this.dinero;
-		for (Producto producto : this.carritoCompra) {
-			if (producto!=null) {
-				if (saldo>producto.getPrecio()) {
-					saldo -= producto.getPrecio();
-				}
-				else {
-					saldo = this.dinero;
-					System.out.println(dineroInsuficiente);
-					break;
+	public boolean pagar(double precioTotalCarrito) {
+		boolean haPagado = false;
+		if (this.dinero>precioTotalCarrito) {
+			for (int i=0; i<this.carritoCompra.length; i++) {
+				if (this.carritoCompra[i]!=null) {
+					this.dinero -= this.carritoCompra[i].getPrecio();
+					this.carritoCompra[i]=null;
 				}
 			}
+			haPagado=true;
+			System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Ha pagado su carrito correctamente"+ConsoleColors.RESET);
 		}
-		if (saldo<this.dinero) {
-			this.dinero=saldo;
-			System.out.println(pagadoCorrectamente);
+		else {
+			System.out.println(ConsoleColors.RED_BRIGHT+"No tiene suficiente dinero para pagar el carrito"+ConsoleColors.RESET);
 		}
-		System.out.println("Tengo "+this.dinero+" euros");
+		return haPagado;
 	}
 }
