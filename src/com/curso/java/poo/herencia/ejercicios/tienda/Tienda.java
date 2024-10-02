@@ -12,8 +12,8 @@ public class Tienda {
 	public Tienda(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.usuarios = new Usuario[2];
-		this.productos = new Producto[2];
+		this.usuarios = new Usuario[10];
+		this.productos = new Producto[10];
 	}
 	public String getNombre() {
 		return nombre;
@@ -38,8 +38,12 @@ public class Tienda {
 		return "Tienda [nombre="+nombre+", usuarios="+Arrays.toString(usuarios)+", productos="+Arrays.toString(productos)+"]";
 	}
 	public static void main(String[] args) {
-		Tienda tienda = new Tienda(args[0]);
-		tienda.abrirTienda(args[1], args[2], args[3]);
+		if (args.length==4 ) {
+			Tienda tienda = new Tienda(args[0]);
+			tienda.abrirTienda(args[1], args[2], args[3]);
+		}else {
+			System.out.println(ConsoleColors.RED_BRIGHT+"Debes mandarme cuatro parámetros <nombreTienda nombreAdministrador códigoUsuarioAdministrador constraseñaAdministrador>"+ConsoleColors.RESET);
+		}
 	}
 	public void abrirTienda(String nombre, String codigoUsuario, String contrasenia) {
 		System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"Esta es la página web para la tienda "+this.nombre+ConsoleColors.RESET);
@@ -54,9 +58,13 @@ public class Tienda {
 		this.usuarios[0]=admin1;
 	}
 	private void crearStockInicial() {
-		Libro libro1 = new Libro("1", 50.5, "346462345", "El Hobbit");
-		Libro libro2 = new Libro("2", 52.3, "362346234", "Dune");
-		Producto[] productos = {(Producto)libro1, (Producto)libro2};
+		Libro libro1 = new Libro("1", 42.75, "346462345", "El Hobbit");
+		Libro libro2 = new Libro("2", 28.4, "362346234", "Dune");
+		Movil movil1 = new Movil("3", 829.0, "Apple", "Iphone 15");
+		Movil movil2 = new Movil("4", 649.9, "Xiamoi", "14T");
+		Ropa ropa1 = new Ropa("5", 34.4, 31.0, "rojo");
+		Ropa ropa2 = new Ropa("6", 25.8, 33.0, "azul");
+		Producto[] productos = {(Producto)libro1, (Producto)libro2, (Producto)movil1, (Producto)movil2, (Producto)ropa1, (Producto)ropa2};
 		this.productos = productos;
 	}
 	public void menuUsuario() {
@@ -129,6 +137,7 @@ public class Tienda {
 		return quiereContinuar;
 	}
 	public void menuAdmin(Admin admin) {
+		System.out.println("\f");
 		int seleccion = 0;
 		String[] opciones = {ConsoleColors.BLUE_BACKGROUND_BRIGHT+"Dar de alta producto"+ConsoleColors.RESET, ConsoleColors.BLUE_BACKGROUND_BRIGHT+"Dar de alta usuario"+ConsoleColors.RESET};
 		if (admin.isCrearUsuarios()) {
@@ -262,6 +271,7 @@ public class Tienda {
 		return codigoNoRepetido;
 	}
 	public void menuCliente(Cliente cliente) {
+		System.out.println("\f");
 		int posicionCarrito=0;
 		do {
 			if (cliente.getCarritoCompra()[posicionCarrito]==null) {

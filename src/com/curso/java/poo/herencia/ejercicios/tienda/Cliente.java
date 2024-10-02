@@ -8,9 +8,9 @@ public class Cliente extends Usuario {
 	private double dinero;
 	public Cliente(String nombre, String codigo_usuario, String contrasenia, boolean vip) {
 		super(nombre, codigo_usuario, contrasenia);
-		this.carritoCompra = new Producto[2];
+		this.carritoCompra = new Producto[10];
 		this.vip = vip;
-		this.dinero = 100.00;
+		this.dinero = 1000.00;
 	}
 	public Producto[] getCarritoCompra() {
 		return carritoCompra;
