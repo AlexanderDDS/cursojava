@@ -14,5 +14,8 @@ public class TazaCafe {
 	public double getTemperatura() {
 		return temperatura;
 	}
-	
+	@Override
+	public String toString() {
+		return "TazaCafe [tipoCafe="+tipoCafe+", temperatura="+Math.round(this.temperatura*10)/10.0+"º]";
+	}
 }

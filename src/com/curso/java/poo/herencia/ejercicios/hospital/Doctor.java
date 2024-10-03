@@ -45,12 +45,12 @@ public class Doctor extends EmpleadoHospital {
 		String enfermedad="";
 		double numAleatorio = Math.random()*6;
 		switch ((int)numAleatorio) {
-		case 0: enfermedad="mimitis aguda";break;
-		case 1: enfermedad="apendicitis";break;
-		case 2: enfermedad="gastritis";break;
-		case 3: enfermedad="cáncer";break;
-		case 4: enfermedad="pancreatitis";break;
-		case 5: enfermedad="cólico biliar";break;
+			case 0: enfermedad="mimitis aguda";break;
+			case 1: enfermedad="apendicitis";break;
+			case 2: enfermedad="gastritis";break;
+			case 3: enfermedad="cáncer";break;
+			case 4: enfermedad="pancreatitis";break;
+			case 5: enfermedad="cólico biliar";break;
 		}
 		return enfermedad;
 	}
