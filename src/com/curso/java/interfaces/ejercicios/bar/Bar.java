@@ -105,10 +105,10 @@ public class Bar {
 		return serviblesCafe;
 	}
 	public void servirCafe(ServibleCafe[] serviblesCafe, TazaCafe[] tazasCafe) throws InsufficientCupsOfCoffeeException{
-		System.out.println("Vamos a servir café");
+		System.out.println("Vamos a servir café (esperando a ser servidos="+serviblesCafe.length+")");
 		mostrarTazasCafe(tazasCafe);
 		if (tazasCafe.length<serviblesCafe.length) {
-			InsufficientCupsOfCoffeeException icoce = new InsufficientCupsOfCoffeeException(ConsoleColors.RED_BOLD_BRIGHT+"No hay suficientes tazas de café para servir a todos los que están en el bar!!"+ConsoleColors.RESET);
+			InsufficientCupsOfCoffeeException icoce = new InsufficientCupsOfCoffeeException(ConsoleColors.RED_BOLD_BRIGHT+"No hay suficientes tazas de café!!"+ConsoleColors.RESET);
 			throw icoce;
 		}
 		for (int i=0; i<serviblesCafe.length; i++) {
@@ -124,8 +124,8 @@ public class Bar {
 		}
 	}
 	public void mostrarTazasCafe(TazaCafe[] tazasCafe) {
-		System.out.println("Ahora mismo hay estas tazas de café en el bar:");
-		String stringsTazasCafe = Arrays.toString(tazasCafe).replace("],", "]\n\t"); //reemplazar primer y ultimo corchete con ""
-		System.out.println(ConsoleColors.PURPLE_BACKGROUND+"\t"+stringsTazasCafe+ConsoleColors.RESET);
+		System.out.print("Ahora mismo hay estas tazas de café en el bar:\n\t");
+		String stringsTazasCafe = ConsoleColors.PURPLE_BACKGROUND+Arrays.toString(tazasCafe).substring(1).replace("]]", "]"+ConsoleColors.RESET).replace("], ", "]"+ConsoleColors.RESET+"\n\t"+ConsoleColors.PURPLE_BACKGROUND);
+		System.out.println(stringsTazasCafe);
 	}
 }
