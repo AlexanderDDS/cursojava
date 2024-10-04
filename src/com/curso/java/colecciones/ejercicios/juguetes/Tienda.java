@@ -3,6 +3,7 @@ package com.curso.java.colecciones.ejercicios.juguetes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.curso.java.utils.Utilidades;
 
@@ -15,13 +16,15 @@ public class Tienda {
 	public void abrirTienda() {
 		List<Juguete> juguetes = crearListaJuguetes();
 		System.out.println("Precio total="+daPrecioTotalJuguetesMuestraModeloTrenes(juguetes)+" euros");
-		metodoUsandoListIterator(juguetes);
+		// B) metodoUsandoListIterator(juguetes);
 		// A) borrarMuniecasMismoColor(juguetes);
+		
 		muestraJuguetes(juguetes);
 	}
 	//4 objetos 2 trenes y 2 muñecas. Se meten en una lista
 	private List<Juguete> crearListaJuguetes() {
-		List<Juguete> juguetes = new ArrayList();
+		//List<Juguete> juguetes = new ArrayList();
+		List<Juguete> juguetes = new CopyOnWriteArrayList(); // C) El mejor método, simplemente crear lista al principio como CopyOnWriteArrayList, en lugar de ArrayList
 		Juguete j1 = new Tren("Tren1", 30.0, "Bizak", "T400");
 		Juguete j2 = new Tren("Tren2", 20.0, "Bizak", "A80");
 		Juguete j3 = new Munieca("Muñeca1", 43.0, "Bizak", "rojo");
@@ -50,9 +53,9 @@ public class Tienda {
 		for (Juguete juguete : juguetes) {
 			if (juguete instanceof Munieca) {
 				if (((Munieca)juguete).getColor().toLowerCase().equals(colorSeleccionado)) {
-					//juguetes.remove(juguete); =========== Esto dará ConcurrentModificationException, no se puede cambiar tamaño de lista (al usar remove() ) mientras se está recorriendo esa lista. ===========
+					juguetes.remove(juguete); //=========== Esto dará ConcurrentModificationException, no se puede cambiar tamaño de lista (al usar remove() ) mientras se está recorriendo esa lista. ===========
 												// =============================== POSIBLES SOLUCIONES: A) B) C) ===============================
-					muniecasMismoColor.add(juguete); // A)
+					//muniecasMismoColor.add(juguete); // A)
 				}
 			}
 		}
