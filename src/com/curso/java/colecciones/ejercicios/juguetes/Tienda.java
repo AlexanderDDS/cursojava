@@ -18,17 +18,17 @@ public class Tienda {
 		System.out.println("Precio total="+daPrecioTotalJuguetesMuestraModeloTrenes(juguetes)+" euros");
 		// B) metodoUsandoListIterator(juguetes);
 		// A) borrarMuniecasMismoColor(juguetes);
-		
+		recorrerListaEliminarMuniecasColor(juguetes);
 		muestraJuguetes(juguetes);
 	}
 	//4 objetos 2 trenes y 2 muñecas. Se meten en una lista
 	private List<Juguete> crearListaJuguetes() {
 		//List<Juguete> juguetes = new ArrayList();
 		List<Juguete> juguetes = new CopyOnWriteArrayList(); // C) El mejor método, simplemente crear lista al principio como CopyOnWriteArrayList, en lugar de ArrayList
-		Juguete j1 = new Tren("Tren1", 30.0, "Bizak", "T400");
-		Juguete j2 = new Tren("Tren2", 20.0, "Bizak", "A80");
-		Juguete j3 = new Munieca("Muñeca1", 43.0, "Bizak", "rojo");
-		Juguete j4 = new Munieca("Muñeca2", 38.0, "Bizak", "verde");
+		Juguete j1 = new Tren("Tren1", 30.0, "Shinkansen", "T400");
+		Juguete j2 = new Tren("Tren2", 20.0, "Locomotora", "A80");
+		Juguete j3 = new Munieca("Muñeca1", 43.0, "Barbie", "rojo");
+		Juguete j4 = new Munieca("Muñeca2", 38.0, "Nenuco", "verde");
 		juguetes.add(j1);
 		juguetes.add(j2);
 		juguetes.add(j3);
@@ -47,37 +47,39 @@ public class Tienda {
 		return precioTotal;
 	}
 	//Preguntar por un color y borrar todas las muñecas de ese color
-	public List<Juguete> crearListaJuguetesConMuniecasMismoColor(List<Juguete> juguetes) {
-		List<Juguete> muniecasMismoColor = new ArrayList(); // A)
+	public void recorrerListaEliminarMuniecasColor(List<Juguete> juguetes) {
+		//List<Juguete> muniecasMismoColor = new ArrayList(); // A)
 		String colorSeleccionado = Utilidades.pideDatoString("Escoja un color de muñeca:").toLowerCase().trim();
 		for (Juguete juguete : juguetes) {
 			if (juguete instanceof Munieca) {
 				if (((Munieca)juguete).getColor().toLowerCase().equals(colorSeleccionado)) {
-					juguetes.remove(juguete); //=========== Esto dará ConcurrentModificationException, no se puede cambiar tamaño de lista (al usar remove() ) mientras se está recorriendo esa lista. ===========
+					juguetes.remove(juguete); //========= Esto dará ConcurrentModificationException, no se puede cambiar tamaño de lista (al usar remove() ) mientras se está recorriendo esa lista. =========
 												// =============================== POSIBLES SOLUCIONES: A) B) C) ===============================
 					//muniecasMismoColor.add(juguete); // A)
 				}
 			}
 		}
-		return muniecasMismoColor; // A)
+		//return muniecasMismoColor; // A)
 	}
+	
 	// A) Método alternativo creando otra lista con muñecas del color que queremos borrar (mientras recorremos lista original), y luego usando removeAll() las quitamos en este método
-	public void borrarMuniecasMismoColor(List<Juguete> juguetes) {
-		System.out.println("Vamos a borrar de la lista de juguetes todas las muñecas de un mismo color");
-		juguetes.removeAll(crearListaJuguetesConMuniecasMismoColor(juguetes));
-	}
+	//public void borrarMuniecasMismoColor(List<Juguete> juguetes) {
+	//	System.out.println("Vamos a borrar de la lista de juguetes todas las muñecas de un mismo color");
+	//	juguetes.removeAll(recorrerListaEliminarMuniecasColor(juguetes));
+	//}
+	
 	// B) Método alternativo creando ListIterator en lugar de List, para evitar ConcurrentModificationException
-	private void metodoUsandoListIterator(List<Juguete> juguetes) {
-		ListIterator<Juguete> juguetesLI = juguetes.listIterator();
-		String colorSeleccionado = Utilidades.pideDatoString("Escoja un color de muñeca:").toLowerCase().trim();
-		while(juguetesLI.hasNext()){
-			if (juguetesLI.next() instanceof Munieca) {
-				if(((Munieca)juguetesLI.next()).getColor().toLowerCase().equals(colorSeleccionado)){
-					juguetesLI.remove();
-				}
-			}
-		}
-	}
+	//private void metodoUsandoListIterator(List<Juguete> juguetes) {
+	//	ListIterator<Juguete> juguetesLI = juguetes.listIterator();
+	//	String colorSeleccionado = Utilidades.pideDatoString("Escoja un color de muñeca:").toLowerCase().trim();
+	//	while(juguetesLI.hasNext()){
+	//		if (juguetesLI.next() instanceof Munieca) {
+	//			if(((Munieca)juguetesLI.next()).getColor().toLowerCase().equals(colorSeleccionado)){
+	//				juguetesLI.remove();
+	//			}
+	//		}
+	//	}
+	//}
 	public void muestraJuguetes(List<Juguete> juguetes) {
 		for (Juguete juguete : juguetes) {
 			System.out.println(juguete);
