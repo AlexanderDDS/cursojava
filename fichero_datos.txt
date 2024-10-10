@@ -1,0 +1,7 @@
+Nombre1;1111A;dato3;dato4;dato5;dato6
+Nombre11;2222B;dato3;dato4;dato5;dato6
+Nombre21;3333C;dato3;dato4;dato5;dato6
+Nombre31;4444D;dato3;dato4;dato5;dato6
+Nombre31
+Nombre41;5555E;dato3;dato4;dato5;dato6
+Nombre51;6666F;dato3;dato4;dato5;dato6

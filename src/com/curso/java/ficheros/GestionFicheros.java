@@ -56,7 +56,7 @@ public class GestionFicheros {
 					.append("Todo bien? yo escribiendo en un archivo...\n")
 					.append("Hasta luego Lucas4!\n");
 			// buffer.close();
-			System.out.println("El archivo se ha creado con éxito!");
+			System.out.println("El archivo se ha creado con �xito!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,10 +69,10 @@ public class GestionFicheros {
 			// try (PrintWriter buffer = new PrintWriter(new FileWriter(archivo))){
 
 			buffer.println("Hola que tal amigos!");
-			buffer.println("Todo bien? yo acá escribiendo un archivo...");
+			buffer.println("Todo bien? yo ac� escribiendo un archivo...");
 			buffer.printf("Hasta luego %s! %s", "JoseLuis5", "Cadena");
 			// buffer.close();
-			System.out.println("El archivo se ha creado con éxito!");
+			System.out.println("El archivo se ha creado con �xito!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -149,7 +149,7 @@ public class GestionFicheros {
 				} else {
 					if (file.getName().endsWith(".txt")) {
 						System.out.println("Se puede leer:" + file.canRead());
-						System.out.println("Tamaño " + file.length());
+						System.out.println("TAma�o " + file.length());
 						System.out.println("Es un fichero");
 					}
 				}

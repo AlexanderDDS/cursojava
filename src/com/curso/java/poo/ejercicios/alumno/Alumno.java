@@ -5,12 +5,23 @@ public class Alumno {
 	private String dni;
 	private String nombre;
 	private String apellidos;
+	private String dato4;
+	private String dato5;
+	private String dato6;
 	private boolean mayorEdad;
 	private int nota;
 	
 	//Constructores
 	public Alumno() {
 		
+	}
+	public Alumno(String dni, String nombre, String apellidos, String dato4, String dato5, String dato6) {
+		this.dni=dni;
+		this.nombre=nombre;
+		this.apellidos=apellidos;
+		this.dato4=dato4;
+		this.dato5=dato5;
+		this.dato6=dato6;
 	}
 	public Alumno(String dni, String nombre, String apellidos) {
 		this.dni=dni;
@@ -63,6 +74,11 @@ public class Alumno {
 		this.nota=nota;
 	}
 	
+	@Override
+	public String toString() {
+		return "Alumno [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", dato4=" + dato4
+				+ ", dato5=" + dato5 + ", dato6=" + dato6 + "]";
+	}
 	//Otros métodos
 	public void verNota() {
 		if (mayorEdad) {
